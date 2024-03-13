@@ -1,10 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "graphql:deploy": "sanity graphql deploy",
     "build": "next build",
     "dev": "next",
     "format": "prettier --cache --write .",
+    "graphql:deploy": "sanity graphql deploy",
     "lint": "next lint",
     "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/sanity-io/demo-graphql-presentation-nextjs#using-the-sanity-cli'",
     "setup": "npx sanity@latest init --env .env.local",
