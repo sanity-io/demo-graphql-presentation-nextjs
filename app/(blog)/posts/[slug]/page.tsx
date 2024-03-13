@@ -13,9 +13,7 @@ import PortableText from '../../portable-text'
 import { sanityFetchLegacy, sanityFetch } from '@/sanity/lib/fetch'
 import {
   type PostQueryResponse,
-  type SettingsQueryResponse,
   postQuery,
-  settingsQuery,
   SettingsQuery,
   type SettingsQueryData,
 } from '@/sanity/lib/queries'
