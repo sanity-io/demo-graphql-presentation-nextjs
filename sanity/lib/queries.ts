@@ -2,7 +2,6 @@ import { gql } from '@urql/core'
 import { groq, type PortableTextBlock } from 'next-sanity'
 import type { Image, ImageCrop, ImageHotspot } from 'sanity'
 
-export const settingsQuery = groq`*[_type == "settings"][0]`
 export const SettingsQuery = gql`
   query {
     Settings(id: "settings") {
@@ -47,12 +46,6 @@ export interface SettingsQueryData {
       crop: ImageCrop | null
     } | null
   } | null
-}
-export interface SettingsQueryResponse {
-  title?: string
-  description?: PortableTextBlock[]
-  footer?: PortableTextBlock[]
-  ogImage?: (Image & { alt?: string; metadataBase?: string }) | null
 }
 
 export interface Author {

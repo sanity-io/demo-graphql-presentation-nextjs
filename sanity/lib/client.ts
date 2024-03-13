@@ -11,7 +11,6 @@ import {
   graphqlApiVersion,
   graphqlTag,
   projectId,
-  studioUrl,
 } from '@/sanity/lib/api'
 import { token } from '@/sanity/lib/token'
 
@@ -24,18 +23,6 @@ export const client = createSanityClient({
   apiVersion,
   useCdn: true,
   perspective: 'published',
-  resultSourceMap: 'withKeyArraySelector',
-  stega: {
-    studioUrl,
-    logger: console,
-    filter: (props) => {
-      if (props.sourcePath.at(-1) === 'title') {
-        return true
-      }
-
-      return props.filterDefault(props)
-    },
-  },
 })
 
 export function defineClientUrl(config: {

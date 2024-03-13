@@ -16,10 +16,11 @@ import {
   type SettingsQueryResponse,
   postQuery,
   settingsQuery,
+  SettingsQuery,
+  type SettingsQueryData,
 } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import * as demo from '@/sanity/lib/demo'
-import { gql } from '@urql/core'
 
 type Props = {
   params: { slug: string }
@@ -55,29 +56,17 @@ export async function generateMetadata(
   } satisfies Metadata
 }
 
-const SettingsQuery = gql`
-  query {
-    allSettings {
-      results {
-        id
-        name
-      }
-    }
-  }
-`
-
 export default async function PostPage({ params }: Props) {
-  const [post, settings] = await Promise.all([
+  const [post, _settings] = await Promise.all([
     sanityFetchLegacy<PostQueryResponse>({
       query: postQuery,
       params,
     }),
-    sanityFetchLegacy<SettingsQueryResponse>({
-      query: settingsQuery,
+    sanityFetch<SettingsQueryData>({
+      query: SettingsQuery,
     }),
   ])
-  const settings2 = await sanityFetch({ query: SettingsQuery })
-  console.log(settings2)
+  const settings = _settings.data?.Settings
 
   if (!post?._id) {
     return notFound()

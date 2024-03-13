@@ -11,30 +11,32 @@ import AlertBanner from './alert-banner'
 import PortableText from './portable-text'
 
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetchLegacy } from '@/sanity/lib/fetch'
-import { type SettingsQueryResponse, settingsQuery } from '@/sanity/lib/queries'
+import { sanityFetch } from '@/sanity/lib/fetch'
+import { type SettingsQueryData, SettingsQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await sanityFetchLegacy<SettingsQueryResponse>({
-    query: settingsQuery,
+  const _settings = await sanityFetch<SettingsQueryData>({
+    query: SettingsQuery,
     // Metadata should never contain stega
     stega: false,
   })
+  const settings = _settings.data?.Settings
   const title = settings?.title || demo.title
-  const description = settings?.description || demo.description
+  const description = settings?.descriptionRaw || demo.description
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage)
-  let metadataBase: URL | undefined = undefined
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined
-  } catch {
-    // ignore
-  }
+  // @TODO add support for image fields in GQL
+  // let metadataBase: URL | undefined = undefined
+  // try {
+  // metadataBase = settings?.ogImage?.metadataBase
+  // ? new URL(settings.ogImage.metadataBase)
+  // : undefined
+  // } catch {
+  // ignore
+  // }
   return {
-    metadataBase,
+    // metadataBase,
     title: {
       template: `%s | ${title}`,
       default: title,
@@ -53,10 +55,11 @@ const inter = Inter({
 })
 
 async function Footer() {
-  const data = await sanityFetchLegacy<SettingsQueryResponse>({
-    query: settingsQuery,
+  const _data = await sanityFetch<SettingsQueryData>({
+    query: SettingsQuery,
   })
-  const footer = data?.footer || ([] as PortableTextBlock[])
+  const data = _data.data?.Settings
+  const footer = data?.footerRaw || ([] as PortableTextBlock[])
 
   return (
     <footer className="bg-accent-1 border-accent-2 border-t">

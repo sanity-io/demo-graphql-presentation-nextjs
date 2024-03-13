@@ -8,8 +8,18 @@ const imageBuilder = createImageUrlBuilder({
 })
 
 export const urlForImage = (source: any) => {
+  // Workaround how GQL returns image references
+  if (source?.asset?._id) {
+    return imageBuilder
+      ?.image({
+        ...source,
+        asset: { _type: 'reference', _ref: source.asset._id },
+      })
+      .auto('format')
+      .fit('max')
+  }
   // Ensure that source image contains a valid reference
-  if (!source?.asset?._ref) {
+  if (!source?.asset?._ref && !source?.asset?._id) {
     return undefined
   }
 

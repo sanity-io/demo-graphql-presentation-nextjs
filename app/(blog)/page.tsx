@@ -9,13 +9,13 @@ import Onboarding from './onboarding'
 import PortableText from './portable-text'
 
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetchLegacy } from '@/sanity/lib/fetch'
+import { sanityFetch, sanityFetchLegacy } from '@/sanity/lib/fetch'
 import {
-  HeroQueryResponse,
-  Post,
-  SettingsQueryResponse,
+  type HeroQueryResponse,
+  type Post,
+  SettingsQuery,
   heroQuery,
-  settingsQuery,
+  type SettingsQueryData,
 } from '@/sanity/lib/queries'
 
 function Intro(props: { title: string | null | undefined; description: any }) {
@@ -79,16 +79,17 @@ function HeroPost({
 }
 
 export default async function Page() {
-  const [settings, heroPost] = await Promise.all([
-    sanityFetchLegacy<SettingsQueryResponse>({
-      query: settingsQuery,
+  const [_settings, heroPost] = await Promise.all([
+    sanityFetch<SettingsQueryData>({
+      query: SettingsQuery,
     }),
     sanityFetchLegacy<HeroQueryResponse>({ query: heroQuery }),
   ])
+  const settings = _settings.data?.Settings
 
   return (
     <div className="container mx-auto px-5">
-      <Intro title={settings?.title} description={settings?.description} />
+      <Intro title={settings?.title} description={settings?.descriptionRaw} />
       {heroPost ? (
         <HeroPost
           title={heroPost.title}

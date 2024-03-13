@@ -1,12 +1,15 @@
 import type {
   ClientPerspective,
   QueryParams as SanityQueryParams,
+  ContentSourceMap,
 } from 'next-sanity'
 import { draftMode } from 'next/headers'
+import { stegaEncodeSourceMap } from '@sanity/client/stega'
+import type { AnyVariables, DocumentInput } from '@urql/core'
 
 import { client, getClient } from '@/sanity/lib/client'
+import { studioUrl } from '@/sanity/lib/api'
 import { token } from '@/sanity/lib/token'
-import type { AnyVariables, DocumentInput } from '@urql/core'
 
 /**
  * Used to fetch data in Server Components, it has built in support for handling Draft Mode and perspectives.
@@ -34,7 +37,6 @@ export async function sanityFetchLegacy<QueryResponse>({
 }) {
   if (perspective === 'previewDrafts') {
     return client.fetch<QueryResponse>(query, params, {
-      stega,
       perspective: 'previewDrafts',
       // The token is required to fetch draft content
       token,
@@ -45,7 +47,6 @@ export async function sanityFetchLegacy<QueryResponse>({
     })
   }
   return client.fetch<QueryResponse>(query, params, {
-    stega,
     perspective: 'published',
     // The `published` perspective is available on the API CDN
     useCdn: true,
@@ -77,6 +78,32 @@ export async function sanityFetch<Data, Params = AnyVariables>({
 }) {
   const client = getClient(perspective, stega)
   const result = await client.query<Data>(query, params)
+
+  if (
+    stega &&
+    result.data &&
+    typeof result.extensions === 'object' &&
+    result.extensions !== null &&
+    'sanitySourceMap' in result.extensions
+  ) {
+    const transcoded = stegaEncodeSourceMap<Data>(
+      result.data,
+      result.extensions.sanitySourceMap as ContentSourceMap,
+      {
+        enabled: true,
+        studioUrl,
+        logger: console,
+        filter: (props) => {
+          if (props.sourcePath.at(-1) === 'title') {
+            return true
+          }
+
+          return props.filterDefault(props)
+        },
+      },
+    )
+    return { ...result, data: transcoded }
+  }
 
   return result
 }
