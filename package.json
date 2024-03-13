@@ -1,14 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "next",
     "format": "prettier --cache --write .",
+    "lint": "next lint",
     "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#using-the-sanity-cli'",
     "setup": "npx sanity@latest init --env .env.local",
-    "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#creating-a-read-token'"
+    "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#creating-a-read-token'",
+    "start": "next start"
   },
   "prettier": {
     "plugins": [
@@ -18,7 +18,6 @@
     "semi": false,
     "singleQuote": true
   },
-  "packageManager": "pnpm@8.15.4",
   "dependencies": {
     "@sanity/assist": "^2.0.3",
     "@sanity/icons": "^2.11.2",
@@ -52,5 +51,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.4.12",
     "prettier-plugin-tailwindcss": "^0.5.12"
-  }
+  },
+  "packageManager": "pnpm@8.15.4"
 }

@@ -1,32 +1,32 @@
-import { CogIcon } from "@sanity/icons";
-import { defineArrayMember, defineField, defineType } from "sanity";
+import { CogIcon } from '@sanity/icons'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
-import * as demo from "@/sanity/lib/demo";
+import * as demo from '@/sanity/lib/demo'
 
 export default defineType({
-  name: "settings",
-  title: "Settings",
-  type: "document",
+  name: 'settings',
+  title: 'Settings',
+  type: 'document',
   icon: CogIcon,
   fields: [
     defineField({
-      name: "title",
-      description: "This field is the title of your blog.",
-      title: "Title",
-      type: "string",
+      name: 'title',
+      description: 'This field is the title of your blog.',
+      title: 'Title',
+      type: 'string',
       initialValue: demo.title,
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: "description",
+      name: 'description',
       description:
-        "Used both for the <meta> description tag for SEO, and the blog subheader.",
-      title: "Description",
-      type: "array",
+        'Used both for the <meta> description tag for SEO, and the blog subheader.',
+      title: 'Description',
+      type: 'array',
       initialValue: demo.description,
       of: [
         defineArrayMember({
-          type: "block",
+          type: 'block',
           options: {},
           styles: [],
           lists: [],
@@ -34,13 +34,13 @@ export default defineType({
             decorators: [],
             annotations: [
               defineField({
-                type: "object",
-                name: "link",
+                type: 'object',
+                name: 'link',
                 fields: [
                   {
-                    type: "string",
-                    name: "href",
-                    title: "URL",
+                    type: 'string',
+                    name: 'href',
+                    title: 'URL',
                     validation: (rule) => rule.required(),
                   },
                 ],
@@ -51,25 +51,25 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "footer",
+      name: 'footer',
       description:
-        "This is a block of text that will be displayed at the bottom of the page.",
-      title: "Footer Info",
-      type: "array",
+        'This is a block of text that will be displayed at the bottom of the page.',
+      title: 'Footer Info',
+      type: 'array',
       of: [
         defineArrayMember({
-          type: "block",
+          type: 'block',
           marks: {
             annotations: [
               {
-                name: "link",
-                type: "object",
-                title: "Link",
+                name: 'link',
+                type: 'object',
+                title: 'Link',
                 fields: [
                   {
-                    name: "href",
-                    type: "url",
-                    title: "Url",
+                    name: 'href',
+                    type: 'url',
+                    title: 'Url',
                   },
                 ],
               },
@@ -79,34 +79,34 @@ export default defineType({
       ],
     }),
     defineField({
-      name: "ogImage",
-      title: "Open Graph Image",
-      type: "image",
-      description: "Displayed on social cards and search engine results.",
+      name: 'ogImage',
+      title: 'Open Graph Image',
+      type: 'image',
+      description: 'Displayed on social cards and search engine results.',
       options: {
         hotspot: true,
         aiAssist: {
-          imageDescriptionField: "alt",
+          imageDescriptionField: 'alt',
         },
       },
       fields: [
         defineField({
-          name: "alt",
-          description: "Important for accessibility and SEO.",
-          title: "Alternative text",
-          type: "string",
+          name: 'alt',
+          description: 'Important for accessibility and SEO.',
+          title: 'Alternative text',
+          type: 'string',
           validation: (rule) => {
             return rule.custom((alt, context) => {
               if ((context.document?.ogImage as any)?.asset?._ref && !alt) {
-                return "Required";
+                return 'Required'
               }
-              return true;
-            });
+              return true
+            })
           },
         }),
         defineField({
-          name: "metadataBase",
-          type: "url",
+          name: 'metadataBase',
+          type: 'url',
           description: (
             <a
               href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase"
@@ -122,8 +122,8 @@ export default defineType({
   preview: {
     prepare() {
       return {
-        title: "Settings",
-      };
+        title: 'Settings',
+      }
     },
   },
-});
+})
