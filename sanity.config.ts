@@ -72,7 +72,7 @@ export default defineConfig([
     dataset,
     plugins: [
       presentationTool({
-        locate: defineLocate(`/${pagesRouterWorkspaceName}`),
+        locate: defineLocate(`/${pagesRouterWorkspaceName}/`),
         previewUrl: {
           preview: `/${pagesRouterWorkspaceName}`,
           previewMode: { enable: '/api/draft' },
