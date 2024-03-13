@@ -1,0 +1,8 @@
+.cache
+.github/workflows/*.yml
+.sanity
+.turbo
+.vercel
+.next
+pnpm-lock.yaml
+tsconfig.json

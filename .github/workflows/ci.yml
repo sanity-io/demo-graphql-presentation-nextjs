@@ -16,9 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v4
         with:
-          cache: npm
+          cache: pnpm
           node-version: lts/*
-      - run: npm ci
-      - run: npm run lint -- --max-warnings 0
+      - run: corepack enable && pnpm --version
+      - run: pnpm install --loglevel=error --ignore-scripts
+      - run: pnpm lint -- --max-warnings 0
