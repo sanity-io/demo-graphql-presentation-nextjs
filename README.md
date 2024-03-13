@@ -273,7 +273,7 @@ npx vercel link
 
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs&repository-name=saity-graphql-presentation&project-name=sanity-graphql-presentation&demo-title=Sanity%20Presentation%20with%20GraphQL&demo-description=Using%20URQL,%20Next.js,%20and%20App%20Router&demo-url=https%3A%2F%2Fdemo-graphql-presentation-nextjs.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs&env=NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,SANITY_API_READ_TOKEN,NEXT_PUBLIC_SANITY_GRAPHQL_TAG&envDescription=Make%20sure%20you%27ve%20deployed%20the%20GraphQL%20API%20and%20created%20the%20necessary%20environment%20variables%20before%20deploying&envLink=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs%23using-the-sanity-cli&project-name=saity-graphql-presentation&repository-name=saity-graphql-presentation&demo-title=Sanity%20Presentation%20%2B%20GQL&demo-description=Using%20URQL%2C%20Next.js%2C%20and%20App%20Router&demo-url=https%3A%2F%2Fdemo-graphql-presentation-nextjs.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
 [presentation]: https://www.sanity.io/docs/presentation
