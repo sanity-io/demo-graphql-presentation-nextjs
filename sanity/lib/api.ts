@@ -24,7 +24,7 @@ export const projectId = assertValue(
 )
 
 /**
- * see https://www.sanity.io/docs/api-versioning for how versioning works
+ * See https://www.sanity.io/docs/api-versioning for how versioning works
  */
 export const apiVersion =
   process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-02-28'
@@ -36,6 +36,11 @@ export const graphqlTag = assertValue(
   process.env.NEXT_PUBLIC_SANITY_GRAPHQL_TAG,
   'Missing environment variable: NEXT_PUBLIC_SANITY_GRAPHQL_TAG',
 )
+
+/**
+ * See https://www.sanity.io/docs/graphql#7fc7bbeca01e for how versioning works
+ */
+export const graphqlApiVersion = '2023-08-01'
 
 /**
  * Used to link up the GraphQL deploy command with the right workspace and schema

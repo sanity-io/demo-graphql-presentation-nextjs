@@ -1,7 +1,53 @@
+import { gql } from '@urql/core'
 import { groq, type PortableTextBlock } from 'next-sanity'
-import type { Image } from 'sanity'
+import type { Image, ImageCrop, ImageHotspot } from 'sanity'
 
 export const settingsQuery = groq`*[_type == "settings"][0]`
+export const SettingsQuery = gql`
+  query {
+    Settings(id: "settings") {
+      title
+      descriptionRaw
+      footerRaw
+      ogImage {
+        # not possible to query fields on images yet
+        # alt
+        # metadataBase
+        asset {
+          _id
+        }
+        hotspot {
+          _type
+          x
+          y
+          height
+          width
+        }
+        crop {
+          _type
+          top
+          bottom
+          left
+          right
+        }
+      }
+    }
+  }
+`
+export interface SettingsQueryData {
+  Settings?: {
+    title?: string
+    descriptionRaw?: PortableTextBlock[]
+    footerRaw?: PortableTextBlock[]
+    // @TODO add support for image fields in GQL
+    // ogImage?: (Image & { alt?: string; metadataBase?: string }) | null
+    ogImage?: {
+      asset?: { _id: string | null }
+      hotspot?: ImageHotspot | null
+      crop: ImageCrop | null
+    } | null
+  } | null
+}
 export interface SettingsQueryResponse {
   title?: string
   description?: PortableTextBlock[]

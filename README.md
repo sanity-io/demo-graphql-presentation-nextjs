@@ -13,7 +13,7 @@
 
 ## Demo
 
-### [https://next-blog.sanity.build](https://next-blog.sanity.build)
+### [https://demo-graphql-presentation-nextjs.sanity.build/](https://demo-graphql-presentation-nextjs.sanity.build/)
 
 ## Deploy your own
 

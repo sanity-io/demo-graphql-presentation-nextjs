@@ -1,8 +1,8 @@
-import '../globals.css'
+import './globals.css'
 
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Metadata } from 'next'
-import { PortableTextBlock, VisualEditing, toPlainText } from 'next-sanity'
+import type { Metadata } from 'next'
+import { type PortableTextBlock, VisualEditing, toPlainText } from 'next-sanity'
 import { Inter } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
@@ -11,12 +11,12 @@ import AlertBanner from './alert-banner'
 import PortableText from './portable-text'
 
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetch } from '@/sanity/lib/fetch'
-import { SettingsQueryResponse, settingsQuery } from '@/sanity/lib/queries'
+import { sanityFetchLegacy } from '@/sanity/lib/fetch'
+import { type SettingsQueryResponse, settingsQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await sanityFetch<SettingsQueryResponse>({
+  const settings = await sanityFetchLegacy<SettingsQueryResponse>({
     query: settingsQuery,
     // Metadata should never contain stega
     stega: false,
@@ -53,7 +53,7 @@ const inter = Inter({
 })
 
 async function Footer() {
-  const data = await sanityFetch<SettingsQueryResponse>({
+  const data = await sanityFetchLegacy<SettingsQueryResponse>({
     query: settingsQuery,
   })
   const footer = data?.footer || ([] as PortableTextBlock[])

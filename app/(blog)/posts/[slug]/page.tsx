@@ -10,22 +10,23 @@ import DateComponent from '../../date'
 import MoreStories from '../../more-stories'
 import PortableText from '../../portable-text'
 
-import { sanityFetch } from '@/sanity/lib/fetch'
+import { sanityFetchLegacy, sanityFetch } from '@/sanity/lib/fetch'
 import {
-  PostQueryResponse,
-  SettingsQueryResponse,
+  type PostQueryResponse,
+  type SettingsQueryResponse,
   postQuery,
   settingsQuery,
 } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import * as demo from '@/sanity/lib/demo'
+import { gql } from '@urql/core'
 
 type Props = {
   params: { slug: string }
 }
 
 export async function generateStaticParams() {
-  return sanityFetch<{ slug: string }[]>({
+  return sanityFetchLegacy<{ slug: string }[]>({
     query: groq`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`,
     perspective: 'published',
     stega: false,
@@ -36,7 +37,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const post = await sanityFetch<PostQueryResponse>({
+  const post = await sanityFetchLegacy<PostQueryResponse>({
     query: postQuery,
     params,
     stega: false,
@@ -54,16 +55,29 @@ export async function generateMetadata(
   } satisfies Metadata
 }
 
+const SettingsQuery = gql`
+  query {
+    allSettings {
+      results {
+        id
+        name
+      }
+    }
+  }
+`
+
 export default async function PostPage({ params }: Props) {
   const [post, settings] = await Promise.all([
-    sanityFetch<PostQueryResponse>({
+    sanityFetchLegacy<PostQueryResponse>({
       query: postQuery,
       params,
     }),
-    sanityFetch<SettingsQueryResponse>({
+    sanityFetchLegacy<SettingsQueryResponse>({
       query: settingsQuery,
     }),
   ])
+  const settings2 = await sanityFetch({ query: SettingsQuery })
+  console.log(settings2)
 
   if (!post?._id) {
     return notFound()

@@ -4,7 +4,7 @@ import Avatar from './avatar'
 import CoverImage from './cover-image'
 import DateComponent from './date'
 
-import { sanityFetch } from '@/sanity/lib/fetch'
+import { sanityFetchLegacy } from '@/sanity/lib/fetch'
 import {
   MoreStoriesQueryResponse,
   moreStoriesQuery,
@@ -14,7 +14,7 @@ export default async function MoreStories(params: {
   skip: string
   limit: number
 }) {
-  const data = await sanityFetch<MoreStoriesQueryResponse>({
+  const data = await sanityFetchLegacy<MoreStoriesQueryResponse>({
     query: moreStoriesQuery,
     params,
   })

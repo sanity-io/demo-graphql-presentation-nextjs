@@ -9,7 +9,7 @@ import Onboarding from './onboarding'
 import PortableText from './portable-text'
 
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetch } from '@/sanity/lib/fetch'
+import { sanityFetchLegacy } from '@/sanity/lib/fetch'
 import {
   HeroQueryResponse,
   Post,
@@ -80,10 +80,10 @@ function HeroPost({
 
 export default async function Page() {
   const [settings, heroPost] = await Promise.all([
-    sanityFetch<SettingsQueryResponse>({
+    sanityFetchLegacy<SettingsQueryResponse>({
       query: settingsQuery,
     }),
-    sanityFetch<HeroQueryResponse>({ query: heroQuery }),
+    sanityFetchLegacy<HeroQueryResponse>({ query: heroQuery }),
   ])
 
   return (
