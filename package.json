@@ -46,6 +46,7 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
+    "@next/env": "latest",
     "eslint": "^8.57.0",
     "eslint-config-next": "latest",
     "prettier": "^3.2.5",
