@@ -5,9 +5,9 @@
     "dev": "next",
     "format": "prettier --cache --write .",
     "lint": "next lint",
-    "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#using-the-sanity-cli'",
+    "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/sanity-io/demo-graphql-presentation-nextjs#using-the-sanity-cli'",
     "setup": "npx sanity@latest init --env .env.local",
-    "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#creating-a-read-token'",
+    "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/sanity-io/demo-graphql-presentation-nextjs#creating-a-read-token'",
     "start": "next start"
   },
   "prettier": {
@@ -31,7 +31,7 @@
     "@vercel/speed-insights": "1.0.10",
     "autoprefixer": "10.4.18",
     "date-fns": "3.4.0",
-    "next": "latest",
+    "next": "^14.1.3",
     "next-sanity": "8.3.2",
     "postcss": "8.4.35",
     "react": "18.2.0",
@@ -45,9 +45,9 @@
     "typescript": "5.3.3"
   },
   "devDependencies": {
-    "@next/env": "latest",
+    "@next/env": "^14.1.3",
     "eslint": "8.57.0",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "^14.1.3",
     "prettier": "3.2.5",
     "prettier-plugin-packagejson": "2.4.12",
     "prettier-plugin-tailwindcss": "0.5.12"
