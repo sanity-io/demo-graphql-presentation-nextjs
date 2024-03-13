@@ -1,21 +1,14 @@
-# A statically generated blog example using Next.js and Sanity
+# Sanity Presentation with GraphQL
 
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://github.com/sanity-io/next.js/assets/81981/59ecd9d6-7a78-41c6-95f7-275f66fe3c9d)
 
-This starter is a statically generated blog that uses Next.js App Router for the frontend and [Sanity][sanity-homepage] to handle its content. It comes with a native Sanity Studio that offers features like real-time collaboration and visual editing with live updates using [Presentation][presentation].
-
-The Studio connects to Sanity Content Lake, which gives you hosted content APIs with a flexible query language, on-demand image transformations, powerful patching, and more. You can use this starter to kick-start a blog or learn these technologies.
+> [!NOTE]  
+> This demo is setup with GraphQL, [there's also a simpler version that uses GROQ.][https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme]
 
 ## Features
 
-- A performant, static blog with editable posts, authors, and site settings
-- A native and customizable authoring environment, accessible on `yourblog.com/studio`
-- Real-time and collaborative content editing with fine-grained revision history
-- Side-by-side instant content preview that works across your whole site
-- Support for block content and the most advanced custom fields capability in the industry
-- Incremental Static Revalidation; no need to wait for a rebuild to publish new content
-- Unsplash integration setup for easy media management
-- [Sanity AI Assist preconfigured for image alt text generation](https://www.sanity.io/docs/ai-assist?utm_source=github.com&utm_medium=organic_social&utm_campaign=ai-assist&utm_content=)
+- Uses URQL to query the GraphQL API
+- Demonstrates how to use [`sanity/presentation`][presentation] on both [App Router][app-router] and [Pages Router][pages-router]
 - Out of the box support for [Vercel Visual Editing](https://www.sanity.io/blog/visual-editing-sanity-vercel?utm_source=github.com&utm_medium=referral&utm_campaign=may-vercel-launch).
 
 ## Demo
@@ -24,7 +17,7 @@ The Studio connects to Sanity Content Lake, which gives you hosted content APIs 
 
 ## Deploy your own
 
-Use the Deploy Button below, you'll deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) as well as connect it to your Sanity dataset using [the Sanity Vercel Integration][integration].
+Use the Deploy Button below, you'll deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example).
 
 [![Deploy with Vercel](https://vercel.com/button)][vercel-deploy]
 
@@ -33,15 +26,15 @@ Use the Deploy Button below, you'll deploy the example using [Vercel](https://ve
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-npx create-next-app --example cms-sanity next-sanity-blog
+npx create-next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
 ```
 
 ```bash
-yarn create next-app --example cms-sanity next-sanity-blog
+yarn create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
 ```
 
 ```bash
-pnpm create next-app --example cms-sanity next-sanity-blog
+pnpm create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
 ```
 
 # Configuration
@@ -85,7 +78,7 @@ yarn setup
 ```
 
 ```bash
-pnpm run setup
+pnpm setup
 ```
 
 You'll be asked multiple questions, here's a sample output of what you can expect:
@@ -106,7 +99,7 @@ Looks like you already have a Sanity-account. Sweet!
 
 ✔ Fetching existing projects
 ? Select project to use Templates [r0z1eifg]
-? Select dataset to use blog-vercel
+? Select dataset to use graphql
 ? Would you like to add configuration files for a Sanity project in this Next.js folder? No
 
 Detected framework Next.js, using prefix 'NEXT_PUBLIC_'
@@ -135,12 +128,29 @@ Your `.env.local` file should look something like this:
 
 ```bash
 NEXT_PUBLIC_SANITY_PROJECT_ID="r0z1eifg"
-NEXT_PUBLIC_SANITY_DATASET="blog-vercel"
+NEXT_PUBLIC_SANITY_DATASET="graphql"
 SANITY_API_READ_TOKEN="sk..."
+NEXT_PUBLIC_SANITY_GRAPHQL_TAG="default"
 ```
 
 > [!CAUTION]  
 > Make sure to add `.env.local` to your `.gitignore` file so you don't accidentally commit it to your repository.
+
+#### Deploy the GraphQL API
+
+Run this command to deploy the GraphQL API:
+
+```bash
+npm run graphql:deploy
+```
+
+```bash
+yarn graphql:deploy
+```
+
+```bash
+pnpm graphql:deploy
+```
 
 ## Step 2. Run Next.js locally in development mode
 
@@ -156,7 +166,7 @@ yarn install && yarn dev
 pnpm install && pnpm dev
 ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [the Slack community](https://slack.sanity.io/).
 
 ## Step 3. Populate content
 
@@ -263,35 +273,10 @@ npx vercel link
 
 - [Join the Sanity community](https://slack.sanity.io/)
 
-## Related examples
-
-- [AgilityCMS](/examples/cms-agilitycms)
-- [Builder.io](/examples/cms-builder-io)
-- [ButterCMS](/examples/cms-buttercms)
-- [Contentful](/examples/cms-contentful)
-- [Cosmic](/examples/cms-cosmic)
-- [DatoCMS](/examples/cms-datocms)
-- [DotCMS](/examples/cms-dotcms)
-- [Drupal](/examples/cms-drupal)
-- [Enterspeed](/examples/cms-enterspeed)
-- [Ghost](/examples/cms-ghost)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent-ai)
-- [Prepr](/examples/cms-prepr)
-- [Prismic](/examples/cms-prismic)
-- [Sanity](/examples/cms-sanity)
-- [Sitefinity](/examples/cms-sitefinity)
-- [Storyblok](/examples/cms-storyblok)
-- [TakeShape](/examples/cms-takeshape)
-- [Umbraco heartcore](/examples/cms-umbraco-heartcore)
-- [Webiny](/examples/cms-webiny)
-- [Blog Starter](/examples/blog-starter)
-- [WordPress](/examples/cms-wordpress)
-
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fcms-sanity&repository-name=cms-sanity&project-name=cms-sanity&demo-title=Blog%20using%20Next.js%20%26%20Sanity&demo-description=Real-time%20updates%2C%20seamless%20editing%2C%20no%20rebuild%20delays.&demo-url=https%3A%2F%2Fnext-blog.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
-[integration]: https://www.sanity.io/docs/vercel-integration
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs&repository-name=saity-graphql-presentation&project-name=sanity-graphql-presentation&demo-title=Sanity%20Presentation%20with%20GraphQL&demo-description=Using%20URQL,%20Next.js,%20and%20App%20Router&demo-url=https%3A%2F%2Fdemo-graphql-presentation-nextjs.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259&integration-ids=oac_hb2LITYajhRQ0i4QznmKH7gx
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
-[sanity-homepage]: https://www.sanity.io?utm_source=github.com&utm_medium=referral&utm_campaign=nextjs-v3vercelstarter
 [presentation]: https://www.sanity.io/docs/presentation
 [enable-ai-assist]: https://www.sanity.io/plugins/ai-assist#enabling-the-ai-assist-api
+[app-router]: https://nextjs.org/docs/app
+[pages-router]: https://nextjs.org/docs/pages

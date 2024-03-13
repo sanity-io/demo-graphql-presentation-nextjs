@@ -24,12 +24,13 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
 }
 
 export function resolveHref(
+  basePath: string,
   documentType?: string,
   slug?: string,
 ): string | undefined {
   switch (documentType) {
     case 'post':
-      return slug ? `/posts/${slug}` : undefined
+      return slug ? `${basePath}posts/${slug}` : undefined
     default:
       console.warn('Invalid document type:', documentType)
       return undefined
