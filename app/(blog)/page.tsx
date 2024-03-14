@@ -9,12 +9,12 @@ import Onboarding from './onboarding'
 import PortableText from './portable-text'
 
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetch, sanityFetchLegacy } from '@/sanity/lib/fetch'
+import { sanityFetch } from '@/sanity/lib/fetch'
 import {
-  type HeroQueryResponse,
-  type Post,
+  HeroQuery,
   SettingsQuery,
-  heroQuery,
+  type HeroQueryData,
+  type PostFragmentType,
   type SettingsQueryData,
 } from '@/sanity/lib/queries'
 
@@ -44,25 +44,29 @@ function HeroPost({
   excerpt,
   coverImage,
   date,
+  _updatedAt,
   author,
 }: Pick<
-  Post,
-  'title' | 'coverImage' | 'date' | 'excerpt' | 'author' | 'slug'
+  PostFragmentType,
+  'title' | 'coverImage' | 'date' | '_updatedAt' | 'excerpt' | 'author' | 'slug'
 >) {
   return (
     <article>
-      <Link className="group mb-8 block md:mb-16" href={`/posts/${slug}`}>
+      <Link
+        className="group mb-8 block md:mb-16"
+        href={`/posts/${slug.current}`}
+      >
         <CoverImage image={coverImage} priority />
       </Link>
       <div className="mb-20 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
         <div>
           <h3 className="mb-4 text-pretty text-4xl leading-tight lg:text-6xl">
-            <Link href={`/posts/${slug}`} className="hover:underline">
-              {title}
+            <Link href={`/posts/${slug.current}`} className="hover:underline">
+              {title || 'Untitled'}
             </Link>
           </h3>
           <div className="mb-4 text-lg md:mb-0">
-            <DateComponent dateString={date} />
+            <DateComponent dateString={date || _updatedAt} />
           </div>
         </div>
         <div>
@@ -71,7 +75,9 @@ function HeroPost({
               {excerpt}
             </p>
           )}
-          {author && <Avatar name={author.name} picture={author.picture} />}
+          {author?.name && (
+            <Avatar name={author.name} picture={author.picture} />
+          )}
         </div>
       </div>
     </article>
@@ -79,13 +85,12 @@ function HeroPost({
 }
 
 export default async function Page() {
-  const [_settings, heroPost] = await Promise.all([
-    sanityFetch<SettingsQueryData>({
-      query: SettingsQuery,
-    }),
-    sanityFetchLegacy<HeroQueryResponse>({ query: heroQuery }),
+  const [_settings, allPost] = await Promise.all([
+    sanityFetch<SettingsQueryData>({ query: SettingsQuery }),
+    sanityFetch<HeroQueryData>({ query: HeroQuery }),
   ])
   const settings = _settings.data?.Settings
+  const heroPost = allPost.data?.allPost?.[0]
 
   return (
     <div className="container mx-auto px-5">
@@ -97,6 +102,7 @@ export default async function Page() {
           coverImage={heroPost.coverImage}
           excerpt={heroPost.excerpt}
           date={heroPost.date}
+          _updatedAt={heroPost._updatedAt}
           author={heroPost.author}
         />
       ) : (

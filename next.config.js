@@ -5,7 +5,7 @@ module.exports = {
     taint: true,
   },
   logging: {
-    fetches: { fullUrl: false },
+    fetches: { fullUrl: true },
   },
   async headers() {
     return [
