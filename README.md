@@ -11,6 +11,16 @@
 - Demonstrates how to use [`sanity/presentation`][presentation] on both [App Router][app-router] and [Pages Router][pages-router]
 - Out of the box support for [Vercel Visual Editing](https://www.sanity.io/blog/visual-editing-sanity-vercel?utm_source=github.com&utm_medium=referral&utm_campaign=may-vercel-launch).
 
+### App Router
+
+The [App Router][app-router] version is the default experience with its codebase organized under [`/app`](./app) and [`/sanity`](./sanity).
+It's accessed when when you visit [`http://localhost:3000`](https://demo-graphql-presentation-nextjs.sanity.build/) and its Sanity Studio is at [`http://localhost:3000/studio/app-router`](https://demo-graphql-presentation-nextjs.sanity.build/studio/app-router/).
+
+### Pages Router
+
+The [Pages Router][pages-router] version is an alternative experience with its codebase organized under [`/pages`](./pages), [`/components`](./components), and [`/sanity`](./sanity). It tries to re-use as much as possible from the App Router version.
+It's accessed when when you visit [`http://localhost:3000/pages-router`](https://demo-graphql-presentation-nextjs.sanity.build/pages-router) and its Sanity Studio is at [`http://localhost:3000/studio/pages-router`](https://demo-graphql-presentation-nextjs.sanity.build/studio/pages-router/).
+
 ## Demo
 
 ### [https://demo-graphql-presentation-nextjs.sanity.build/](https://demo-graphql-presentation-nextjs.sanity.build/)

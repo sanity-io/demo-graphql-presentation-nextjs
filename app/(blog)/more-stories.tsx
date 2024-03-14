@@ -16,7 +16,7 @@ export default async function MoreStories(params: {
 }) {
   const _data = await sanityFetch<MoreStoriesQueryData>({
     query: MoreStoriesQuery,
-    params,
+    variables: params,
   })
   const data = Array.isArray(_data.data?.allPost) ? _data.data.allPost : []
 

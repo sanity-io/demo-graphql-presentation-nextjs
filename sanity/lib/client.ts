@@ -1,6 +1,6 @@
 import { cacheExchange, createClient, fetchExchange } from '@urql/core'
 import type { ClientPerspective } from 'next-sanity'
-import { cache } from 'react'
+import * as React from 'react'
 
 import {
   dataset,
@@ -62,4 +62,8 @@ const makeClient = (
       throw new Error(`Unknown perspective: ${perspective}`)
   }
 }
-export const getClient = cache(makeClient)
+/**
+ * We're using `React.cache` instead of `import { registerUrql } from '@urql/next/rsc'`
+ * here on purpose as we need to return differen't clients based on the perspective and wether stega is enabled.
+ */
+export const getClient = React.cache?.(makeClient)

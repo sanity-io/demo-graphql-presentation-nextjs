@@ -15,6 +15,12 @@ import { sanityFetch } from '@/sanity/lib/fetch'
 import { type SettingsQueryData, SettingsQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 export async function generateMetadata(): Promise<Metadata> {
   const _settings = await sanityFetch<SettingsQueryData>({
     query: SettingsQuery,
@@ -48,12 +54,6 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
-
 async function Footer() {
   const _data = await sanityFetch<SettingsQueryData>({
     query: SettingsQuery,
@@ -82,7 +82,7 @@ async function Footer() {
                 Read Documentation
               </a>
               <a
-                href="https://github.com/vercel/next.js/tree/canary/examples/cms-sanity"
+                href="https://github.com/sanity-io/demo-graphql-presentation-nextjs#readme"
                 className="mx-3 font-bold hover:underline"
               >
                 View on GitHub

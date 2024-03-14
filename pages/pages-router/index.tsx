@@ -1,31 +1,36 @@
-import Link from 'next/link'
+import type { InferGetStaticPropsType } from 'next'
+import { useQuery } from 'urql'
 import { Suspense } from 'react'
 
-import Avatar from './avatar'
-import CoverImage from './cover-image'
-import DateComponent from './date'
-import MoreStories from './more-stories'
-import Onboarding from './onboarding'
-import PortableText from './portable-text'
-
 import * as demo from '@/sanity/lib/demo'
-import { sanityFetch } from '@/sanity/lib/fetch'
+import { defineGetStaticProps } from '@/components/UrqlProvider'
 import {
   HeroQuery,
   SettingsQuery,
-  type HeroQueryData,
   type PostFragmentType,
-  type SettingsQueryData,
 } from '@/sanity/lib/queries'
+// import Avatar from '@/app/(blog)/avatar'
+import CoverImage from '@/components/CoverImage'
+import DateComponent from '@/app/(blog)/date'
+import PortableText from '@/app/(blog)/portable-text'
+import Link from 'next/link'
 
-export default async function Page() {
-  const [_settings, _heroPost] = await Promise.all([
-    sanityFetch<SettingsQueryData>({ query: SettingsQuery }),
-    sanityFetch<HeroQueryData>({ query: HeroQuery }),
+export const getStaticProps = defineGetStaticProps(async (client) => {
+  await Promise.all([
+    client.query(SettingsQuery, {}).toPromise(),
+    client.query(HeroQuery, {}).toPromise(),
   ])
-  const settings = _settings.data?.Settings
-  const heroPost = _heroPost.data?.allPost?.[0]
+})
 
+export default function Page(
+  props: InferGetStaticPropsType<typeof getStaticProps>,
+) {
+  const [_settings] = useQuery({ query: SettingsQuery })
+  const [allPost] = useQuery({ query: HeroQuery })
+  const settings = _settings.data?.Settings
+  const heroPost = allPost.data?.allPost?.[0]
+
+  console.log(props, { settings, heroPost })
   return (
     <div className="container mx-auto px-5">
       <Intro title={settings?.title} description={settings?.descriptionRaw} />
@@ -113,11 +118,19 @@ function HeroPost({
               {excerpt}
             </p>
           )}
-          {author?.name && (
+          {/* {author?.name && (
             <Avatar name={author.name} picture={author.picture} />
-          )}
+          )} */}
         </div>
       </div>
     </article>
   )
+}
+
+function MoreStories(props: any): JSX.Element {
+  return <>hi</>
+}
+
+function Onboarding(props: any): JSX.Element {
+  return <>hi</>
 }

@@ -49,7 +49,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const _post = await sanityFetch<PostQueryData>({
     query: PostQuery,
-    params,
+    variables: params,
     stega: false,
   })
   const post = _post.data?.allPost?.[0]
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: Props) {
   const [_post, _settings] = await Promise.all([
     sanityFetch<PostQueryData>({
       query: PostQuery,
-      params,
+      variables: params,
     }),
     sanityFetch<SettingsQueryData>({
       query: SettingsQuery,

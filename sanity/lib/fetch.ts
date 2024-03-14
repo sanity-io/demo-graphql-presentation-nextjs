@@ -11,7 +11,7 @@ import { studioUrl } from '@/sanity/lib/api'
  */
 export async function sanityFetch<Data, Params = AnyVariables>({
   query,
-  params = {} as AnyVariables,
+  variables = {} as AnyVariables,
   perspective = draftMode().isEnabled ? 'previewDrafts' : 'published',
   /**
    * Stega embedded Content Source Maps are used by Visual Editing by both the Sanity Presentation Tool and Vercel Visual Editing.
@@ -22,12 +22,12 @@ export async function sanityFetch<Data, Params = AnyVariables>({
     process.env.VERCEL_ENV === 'preview',
 }: {
   query: DocumentInput<Data, Params>
-  params?: AnyVariables
+  variables?: AnyVariables
   perspective?: Omit<ClientPerspective, 'raw'>
   stega?: boolean
 }) {
   const client = getClient(perspective, stega)
-  const result = await client.query<Data>(query, params)
+  const result = await client.query<Data>(query, variables)
 
   if (
     stega &&
