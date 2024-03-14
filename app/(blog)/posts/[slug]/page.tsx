@@ -1,5 +1,5 @@
+import { gql } from '@urql/core'
 import type { Metadata, ResolvingMetadata } from 'next'
-import { groq } from 'next-sanity'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
@@ -10,37 +10,49 @@ import DateComponent from '../../date'
 import MoreStories from '../../more-stories'
 import PortableText from '../../portable-text'
 
-import { sanityFetchLegacy, sanityFetch } from '@/sanity/lib/fetch'
+import * as demo from '@/sanity/lib/demo'
+import { sanityFetch } from '@/sanity/lib/fetch'
 import {
-  type PostQueryResponse,
-  postQuery,
+  PostQuery,
   SettingsQuery,
+  type PostQueryData,
   type SettingsQueryData,
 } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
-import * as demo from '@/sanity/lib/demo'
 
 type Props = {
   params: { slug: string }
 }
 
 export async function generateStaticParams() {
-  return sanityFetchLegacy<{ slug: string }[]>({
-    query: groq`*[_type == "post" && defined(slug.current)]{"slug": slug.current}`,
+  const { data } = await sanityFetch<{
+    allPost: { slug: { current: string } }[]
+  }>({
+    query: gql`
+      query {
+        allPost(where: { slug: { current: { neq: null } } }) {
+          slug {
+            current
+          }
+        }
+      }
+    `,
     perspective: 'published',
     stega: false,
   })
+  return data?.allPost.map(({ slug }) => ({ slug: slug.current })) || []
 }
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const post = await sanityFetchLegacy<PostQueryResponse>({
-    query: postQuery,
+  const _post = await sanityFetch<PostQueryData>({
+    query: PostQuery,
     params,
     stega: false,
   })
+  const post = _post.data?.allPost?.[0]
   const previousImages = (await parent).openGraph?.images || []
   const ogImage = resolveOpenGraphImage(post?.coverImage)
 
@@ -55,15 +67,16 @@ export async function generateMetadata(
 }
 
 export default async function PostPage({ params }: Props) {
-  const [post, _settings] = await Promise.all([
-    sanityFetchLegacy<PostQueryResponse>({
-      query: postQuery,
+  const [_post, _settings] = await Promise.all([
+    sanityFetch<PostQueryData>({
+      query: PostQuery,
       params,
     }),
     sanityFetch<SettingsQueryData>({
       query: SettingsQuery,
     }),
   ])
+  const post = _post.data?.allPost?.[0]
   const settings = _settings.data?.Settings
 
   if (!post?._id) {
@@ -79,10 +92,10 @@ export default async function PostPage({ params }: Props) {
       </h2>
       <article>
         <h1 className="mb-12 text-balance text-6xl font-bold leading-tight tracking-tighter md:text-7xl md:leading-none lg:text-8xl">
-          {post.title}
+          {post.title || 'Untitled'}
         </h1>
         <div className="hidden md:mb-12 md:block">
-          {post.author && (
+          {post.author?.name && (
             <Avatar name={post.author.name} picture={post.author.picture} />
           )}
         </div>
@@ -91,18 +104,18 @@ export default async function PostPage({ params }: Props) {
         </div>
         <div className="mx-auto max-w-2xl">
           <div className="mb-6 block md:hidden">
-            {post.author && (
+            {post.author?.name && (
               <Avatar name={post.author.name} picture={post.author.picture} />
             )}
           </div>
           <div className="mb-6 text-lg">
             <div className="mb-4 text-lg">
-              <DateComponent dateString={post.date} />
+              <DateComponent dateString={post.date || post._updatedAt} />
             </div>
           </div>
         </div>
-        {post.content?.length && (
-          <PortableText className="mx-auto max-w-2xl" value={post.content} />
+        {post.contentRaw?.length && (
+          <PortableText className="mx-auto max-w-2xl" value={post.contentRaw} />
         )}
       </article>
       <aside>

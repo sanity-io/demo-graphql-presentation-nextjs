@@ -6,15 +6,22 @@
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { createClient } from 'next-sanity'
 
-import { client } from '@/sanity/lib/client'
+import { apiVersion, dataset, projectId } from '@/sanity/lib/api'
 import { token } from '@/sanity/lib/token'
 
-const clientWithToken = client.withConfig({ token })
+const client = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: false,
+  token,
+})
 
 export async function GET(request: Request) {
   const { isValid, redirectTo = '/' } = await validatePreviewUrl(
-    clientWithToken,
+    client,
     request.url,
   )
   if (!isValid) {

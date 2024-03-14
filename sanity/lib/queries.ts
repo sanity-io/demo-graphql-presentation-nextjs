@@ -1,6 +1,6 @@
 import { gql } from '@urql/core'
-import { groq, type PortableTextBlock } from 'next-sanity'
-import type { Image, ImageCrop, ImageHotspot } from 'sanity'
+import type { PortableTextBlock } from 'next-sanity'
+import type { ImageCrop, ImageHotspot } from 'sanity'
 
 const ImageFragment = gql`
   fragment ImageFragment on Image {
@@ -131,36 +131,6 @@ export interface HeroQueryData {
   allPost?: [PostFragmentType] | null
 }
 
-/** @deprecated */
-export interface Author {
-  name: string
-  picture?: (Image & { alt?: string | null }) | null
-}
-
-/** @deprecated */
-export interface Post {
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt?: string | null
-  coverImage?: (Image & { alt?: string }) | null
-  date: string
-  author?: Author | null
-}
-
-/** @deprecated */
-const postFields = groq`
-  _id,
-  "status": select(_originalId in path("drafts.**") => "draft", "published"),
-  "title": coalesce(title, "Untitled"),
-  "slug": slug.current,
-  excerpt,
-  coverImage,
-  "date": coalesce(date, _updatedAt),
-  "author": author->{"name": coalesce(name, "Anonymous"), picture},
-`
-
 export const MoreStoriesQuery = gql`
   query ($skip: ID!, $limit: Int!) {
     allPost(
@@ -177,14 +147,21 @@ export interface MoreStoriesQueryData {
   allPost?: PostFragmentType[] | null
 }
 
-/** @deprecated */
-export const postQuery = groq`*[_type == "post" && slug.current == $slug] [0] {
-  content,
-  ${postFields}
-}`
-/** @deprecated */
-export type PostQueryResponse =
-  | (Post & {
-      content?: PortableTextBlock[] | null
-    })
-  | null
+export const PostQuery = gql`
+  query ($slug: String!) {
+    allPost(where: { slug: { current: { eq: $slug } } }, limit: 1) {
+      ...PostFragment
+      contentRaw
+    }
+  }
+  ${PostFragment}
+`
+export interface PostQueryData {
+  allPost?:
+    | [
+        PostFragmentType & {
+          contentRaw?: PortableTextBlock[] | null
+        },
+      ]
+    | null
+}

@@ -1,29 +1,14 @@
-import { cacheExchange, createClient, fetchExchange, gql } from '@urql/core'
-import {
-  createClient as createSanityClient,
-  type ClientPerspective,
-} from 'next-sanity'
+import { cacheExchange, createClient, fetchExchange } from '@urql/core'
+import type { ClientPerspective } from 'next-sanity'
 import { cache } from 'react'
 
 import {
-  apiVersion,
   dataset,
   graphqlApiVersion,
   graphqlTag,
   projectId,
 } from '@/sanity/lib/api'
 import { token } from '@/sanity/lib/token'
-
-/**
- * @deprecated move to urql
- */
-export const client = createSanityClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: true,
-  perspective: 'published',
-})
 
 export function defineClientUrl(config: {
   useCdn: boolean
