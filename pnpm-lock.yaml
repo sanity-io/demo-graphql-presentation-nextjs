@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@sanity/assist':
-    specifier: 2.0.3
-    version: 2.0.3(react-dom@18.2.0)(react@18.2.0)(sanity@3.33.0)(styled-components@6.1.8)
+    specifier: 2.0.4
+    version: 2.0.4(react-dom@18.2.0)(react@18.2.0)(sanity@3.33.0)(styled-components@6.1.8)
   '@sanity/client':
     specifier: 6.15.4
     version: 6.15.4
@@ -1281,8 +1281,8 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
-  /@sanity/assist@2.0.3(react-dom@18.2.0)(react@18.2.0)(sanity@3.33.0)(styled-components@6.1.8):
-    resolution: {integrity: sha512-OXwzAmm1x/P04GDXrv7rzPFPLI9jGdGxpYN8qzdSbORqG7rL0GJd/f1+NY4bZnjmBOd5SZpJmzIpea689kMI1A==}
+  /@sanity/assist@2.0.4(react-dom@18.2.0)(react@18.2.0)(sanity@3.33.0)(styled-components@6.1.8):
+    resolution: {integrity: sha512-0Xy9ecFXl9+1xveTvmUYEnbXNDTcFe447NH+0GqbM0BV2HkALWqzRIWv7nW827Oqm3nxoqYSBCzIqN0hKQSyKw==}
     engines: {node: '>=14'}
     peerDependencies:
       react: ^18

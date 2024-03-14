@@ -1,14 +1,15 @@
 import { Image } from 'next-sanity/image'
 
-import { Author } from '@/sanity/lib/queries'
+import type { AuthorFragmentType } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/utils'
 
-export default function Avatar({ name, picture }: Author) {
+export default function Avatar({ name, picture }: AuthorFragmentType) {
   return (
     <div className="flex items-center text-xl">
-      {picture?.asset?._ref ? (
+      {picture?.asset?._id ? (
         <div className="mr-4 h-12 w-12">
           <Image
+            // @ts-expect-error alt is not available yet
             alt={picture?.alt || ''}
             className="h-full rounded-full object-cover"
             height={48}

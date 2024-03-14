@@ -25,7 +25,7 @@ const ImageFragment = gql`
     }
   }
 `
-type ImageFragmentType = {
+export type ImageFragmentType = {
   asset?: { _id: string | null }
   hotspot?: ImageHotspot | null
   crop: ImageCrop | null
@@ -79,7 +79,7 @@ const AuthorFragment = gql`
   }
   ${ImageFragment}
 `
-type AuthorFragmentType = {
+export type AuthorFragmentType = {
   name?: string | null
   picture?: ImageFragmentType | null
 }
@@ -118,8 +118,8 @@ export type PostFragmentType = {
 export const HeroQuery = gql`
   query {
     allPost(
-      limit: 1
       where: { slug: { current: { neq: null } } }
+      limit: 1
       sort: [{ date: DESC }, { _updatedAt: DESC }]
     ) {
       ...PostFragment
@@ -161,11 +161,21 @@ const postFields = groq`
   "author": author->{"name": coalesce(name, "Anonymous"), picture},
 `
 
-/** @deprecated */
-export const moreStoriesQuery = groq`*[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {
-  ${postFields}
-}`
-export type MoreStoriesQueryResponse = Post[] | null
+export const MoreStoriesQuery = gql`
+  query ($skip: ID!, $limit: Int!) {
+    allPost(
+      where: { slug: { current: { neq: null } }, _id: { neq: $skip } }
+      limit: $limit
+      sort: [{ date: DESC }, { _updatedAt: DESC }]
+    ) {
+      ...PostFragment
+    }
+  }
+  ${PostFragment}
+`
+export interface MoreStoriesQueryData {
+  allPost?: PostFragmentType[] | null
+}
 
 /** @deprecated */
 export const postQuery = groq`*[_type == "post" && slug.current == $slug] [0] {

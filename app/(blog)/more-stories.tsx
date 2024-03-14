@@ -4,20 +4,21 @@ import Avatar from './avatar'
 import CoverImage from './cover-image'
 import DateComponent from './date'
 
-import { sanityFetchLegacy } from '@/sanity/lib/fetch'
+import { sanityFetch } from '@/sanity/lib/fetch'
 import {
-  MoreStoriesQueryResponse,
-  moreStoriesQuery,
+  MoreStoriesQuery,
+  type MoreStoriesQueryData,
 } from '@/sanity/lib/queries'
 
 export default async function MoreStories(params: {
   skip: string
   limit: number
 }) {
-  const data = await sanityFetchLegacy<MoreStoriesQueryResponse>({
-    query: moreStoriesQuery,
+  const _data = await sanityFetch<MoreStoriesQueryData>({
+    query: MoreStoriesQuery,
     params,
   })
+  const data = Array.isArray(_data.data?.allPost) ? _data.data.allPost : []
 
   return (
     <>
@@ -26,23 +27,31 @@ export default async function MoreStories(params: {
           const { _id, title, slug, coverImage, excerpt, author } = post
           return (
             <article key={_id}>
-              <Link href={`/posts/${slug}`} className="group mb-5 block">
+              <Link
+                href={`/posts/${slug.current}`}
+                className="group mb-5 block"
+              >
                 <CoverImage image={coverImage} priority={false} />
               </Link>
               <h3 className="mb-3 text-balance text-3xl leading-snug">
-                <Link href={`/posts/${slug}`} className="hover:underline">
-                  {title}
+                <Link
+                  href={`/posts/${slug.current}`}
+                  className="hover:underline"
+                >
+                  {title || 'Untitled'}
                 </Link>
               </h3>
               <div className="mb-4 text-lg">
-                <DateComponent dateString={post.date} />
+                <DateComponent dateString={post.date || post._updatedAt} />
               </div>
               {excerpt && (
                 <p className="mb-4 text-pretty text-lg leading-relaxed">
                   {excerpt}
                 </p>
               )}
-              {author && <Avatar name={author.name} picture={author.picture} />}
+              {author?.name && (
+                <Avatar name={author.name} picture={author.picture} />
+              )}
             </article>
           )
         })}
