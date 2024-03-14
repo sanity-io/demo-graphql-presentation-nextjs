@@ -1,11 +1,6 @@
 import { defineCliConfig } from 'sanity/cli'
 
-import {
-  projectId,
-  dataset,
-  graphqlTag,
-  graphqlWorkspace,
-} from '@/sanity/lib/api'
+import { projectId, dataset, graphqlTag } from '@/sanity/lib/api'
 
 export default defineCliConfig({
   api: { projectId, dataset },
@@ -16,7 +11,6 @@ export default defineCliConfig({
     {
       playground: true,
       tag: graphqlTag,
-      workspace: graphqlWorkspace,
     },
   ],
 })

@@ -1,4 +1,4 @@
-import { Image } from 'next-sanity/image'
+import Image from 'next/image'
 
 import type { AuthorFragmentType } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/utils'

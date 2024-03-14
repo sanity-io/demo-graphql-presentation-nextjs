@@ -1,15 +1,16 @@
-import { Image } from 'next-sanity/image'
+import Image from 'next/image'
 
 import type { ImageFragmentType } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/utils'
 
 interface CoverImageProps {
+  'data-sanity': string
   image?: ImageFragmentType | null
   priority?: boolean
 }
 
 export default function CoverImage(props: CoverImageProps) {
-  const { image: source, priority } = props
+  const { image: source, priority, ...rest } = props
   const image = source?.asset?._id ? (
     <Image
       className="h-auto w-full"
@@ -26,7 +27,10 @@ export default function CoverImage(props: CoverImageProps) {
   )
 
   return (
-    <div className="shadow-md transition-shadow duration-200 group-hover:shadow-lg sm:mx-0">
+    <div
+      {...rest}
+      className="shadow-md transition-shadow duration-200 group-hover:shadow-lg sm:mx-0"
+    >
       {image}
     </div>
   )

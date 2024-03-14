@@ -1,15 +1,10 @@
-'use client'
-
-import { useRouter } from 'next/navigation'
-import { useSyncExternalStore, useTransition } from 'react'
-
-import { disableDraftMode } from './actions'
+/* eslint-disable @next/next/no-html-link-for-pages */
+import { useSyncExternalStore, useState } from 'react'
 
 const emptySubscribe = () => () => {}
 
 export default function AlertBanner() {
-  const router = useRouter()
-  const [pending, startTransition] = useTransition()
+  const [pending, setPending] = useState(false)
 
   const shouldShow = useSyncExternalStore(
     emptySubscribe,
@@ -31,19 +26,15 @@ export default function AlertBanner() {
         ) : (
           <>
             {'Previewing drafts. '}
-            <button
-              type="button"
-              onClick={() =>
-                startTransition(() =>
-                  disableDraftMode().then(() => {
-                    router.refresh()
-                  }),
-                )
-              }
+            <a
+              href="/api/disable-draft"
               className="hover:text-cyan underline transition-colors duration-200"
+              onClick={() => {
+                setPending(true)
+              }}
             >
               Back to published
-            </button>
+            </a>
           </>
         )}
       </div>

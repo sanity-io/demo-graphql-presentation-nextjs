@@ -1,5 +1,3 @@
-'use client'
-
 import { studioUrl } from '@/sanity/lib/api'
 /**
  * This file is used for onboarding when you don't have any posts yet and are using the template for the first time.
@@ -55,7 +53,7 @@ export default function Onboarding() {
       <div>
         <Link
           className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          href={`${studioUrl.baseUrl}/${studioUrl.workspace}/intent/create/template=post;type=post/`}
+          href={`${studioUrl}/intent/create/template=post;type=post/`}
           target={target}
         >
           <svg

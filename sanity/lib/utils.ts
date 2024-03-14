@@ -1,6 +1,10 @@
 import createImageUrlBuilder from '@sanity/image-url'
+import {
+  createDataAttribute,
+  type CreateDataAttributeProps,
+} from '@sanity/visual-editing/next-pages-router'
 
-import { dataset, projectId } from '@/sanity/lib/api'
+import { dataset, projectId, studioUrl } from '@/sanity/lib/api'
 
 const imageBuilder = createImageUrlBuilder({
   projectId: projectId || '',
@@ -34,15 +38,25 @@ export function resolveOpenGraphImage(image: any, width = 1200, height = 627) {
 }
 
 export function resolveHref(
-  basePath: string,
   documentType?: string,
   slug?: string,
 ): string | undefined {
   switch (documentType) {
     case 'post':
-      return slug ? `${basePath}posts/${slug}` : undefined
+      return slug ? `/posts/${slug}` : undefined
     default:
       console.warn('Invalid document type:', documentType)
       return undefined
   }
+}
+
+export function defineDataAttribute(
+  props: Pick<CreateDataAttributeProps, 'id' | 'type'>,
+) {
+  return createDataAttribute({
+    ...props,
+    baseUrl: studioUrl,
+    projectId,
+    dataset,
+  })
 }
