@@ -13,7 +13,6 @@ export default function CoverImage(props: CoverImageProps) {
   const { image: source, priority, ...rest } = props
   const image = source?.asset?._id ? (
     <Image
-      {...rest}
       className="h-auto w-full"
       width={2000}
       height={1000}
@@ -28,7 +27,7 @@ export default function CoverImage(props: CoverImageProps) {
   )
 
   return (
-    <div className="shadow-md transition-shadow duration-200 group-hover:shadow-lg sm:mx-0">
+    <div {...rest} className="shadow-md transition-shadow duration-200 group-hover:shadow-lg sm:mx-0">
       {image}
     </div>
   )
