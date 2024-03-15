@@ -9,6 +9,7 @@ import {
   MoreStoriesQuery,
   type MoreStoriesQueryData,
 } from '@/sanity/lib/queries'
+import { defineDataAttribute } from '@/sanity/lib/utils'
 
 export default async function MoreStories(params: {
   skip: string
@@ -25,13 +26,18 @@ export default async function MoreStories(params: {
       <div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
         {data?.map((post) => {
           const { _id, title, slug, coverImage, excerpt, author } = post
+          const dataAttribute = defineDataAttribute({ id: _id, type: 'post' })
           return (
             <article key={_id}>
               <Link
                 href={`/posts/${slug.current}`}
                 className="group mb-5 block"
               >
-                <CoverImage image={coverImage} priority={false} />
+                <CoverImage
+                  data-sanity={dataAttribute('coverImage')}
+                  image={coverImage}
+                  priority={false}
+                />
               </Link>
               <h3 className="mb-3 text-balance text-3xl leading-snug">
                 <Link

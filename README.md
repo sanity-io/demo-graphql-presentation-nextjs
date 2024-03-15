@@ -3,7 +3,7 @@
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://github.com/sanity-io/next.js/assets/81981/59ecd9d6-7a78-41c6-95f7-275f66fe3c9d)
 
 > [!NOTE]  
-> This demo is setup with GraphQL, [there's also a simpler version that uses GROQ.][https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme]
+> This demo is setup with GraphQL, [there's also a simpler version that uses GROQ.](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme)
 
 ## Features
 

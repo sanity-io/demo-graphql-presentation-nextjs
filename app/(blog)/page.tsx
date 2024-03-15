@@ -17,6 +17,7 @@ import {
   type PostFragmentType,
   type SettingsQueryData,
 } from '@/sanity/lib/queries'
+import { defineDataAttribute } from '@/sanity/lib/utils'
 
 function Intro(props: { title: string | null | undefined; description: any }) {
   const title = props.title || demo.title
@@ -39,6 +40,7 @@ function Intro(props: { title: string | null | undefined; description: any }) {
 }
 
 function HeroPost({
+  _id,
   title,
   slug,
   excerpt,
@@ -48,15 +50,27 @@ function HeroPost({
   author,
 }: Pick<
   PostFragmentType,
-  'title' | 'coverImage' | 'date' | '_updatedAt' | 'excerpt' | 'author' | 'slug'
+  | '_id'
+  | 'title'
+  | 'coverImage'
+  | 'date'
+  | '_updatedAt'
+  | 'excerpt'
+  | 'author'
+  | 'slug'
 >) {
+  const dataAttribute = defineDataAttribute({ id: _id, type: 'post' })
   return (
     <article>
       <Link
         className="group mb-8 block md:mb-16"
         href={`/posts/${slug.current}`}
       >
-        <CoverImage image={coverImage} priority />
+        <CoverImage
+          data-sanity={dataAttribute('coverImage')}
+          image={coverImage}
+          priority
+        />
       </Link>
       <div className="mb-20 md:mb-28 md:grid md:grid-cols-2 md:gap-x-16 lg:gap-x-8">
         <div>
@@ -76,7 +90,11 @@ function HeroPost({
             </p>
           )}
           {author?.name && (
-            <Avatar name={author.name} picture={author.picture} />
+            <Avatar
+              data-sanity={dataAttribute('picture')}
+              name={author.name}
+              picture={author.picture}
+            />
           )}
         </div>
       </div>
@@ -97,6 +115,7 @@ export default async function Page() {
       <Intro title={settings?.title} description={settings?.descriptionRaw} />
       {heroPost ? (
         <HeroPost
+          _id={heroPost._id}
           title={heroPost.title}
           slug={heroPost.slug}
           coverImage={heroPost.coverImage}

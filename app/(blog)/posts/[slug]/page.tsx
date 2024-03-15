@@ -18,7 +18,7 @@ import {
   type PostQueryData,
   type SettingsQueryData,
 } from '@/sanity/lib/queries'
-import { resolveOpenGraphImage } from '@/sanity/lib/utils'
+import { defineDataAttribute, resolveOpenGraphImage } from '@/sanity/lib/utils'
 
 type Props = {
   params: { slug: string }
@@ -83,6 +83,8 @@ export default async function PostPage({ params }: Props) {
     return notFound()
   }
 
+  const dataAttribute = defineDataAttribute({ id: post._id, type: 'post' })
+
   return (
     <div className="container mx-auto px-5">
       <h2 className="mb-16 mt-10 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
@@ -96,11 +98,19 @@ export default async function PostPage({ params }: Props) {
         </h1>
         <div className="hidden md:mb-12 md:block">
           {post.author?.name && (
-            <Avatar name={post.author.name} picture={post.author.picture} />
+            <Avatar
+              data-sanity={dataAttribute('picture')}
+              name={post.author.name}
+              picture={post.author.picture}
+            />
           )}
         </div>
         <div className="mb-8 sm:mx-0 md:mb-16">
-          <CoverImage image={post.coverImage} priority />
+          <CoverImage
+            data-sanity={dataAttribute('coverImage')}
+            image={post.coverImage}
+            priority
+          />
         </div>
         <div className="mx-auto max-w-2xl">
           <div className="mb-6 block md:hidden">

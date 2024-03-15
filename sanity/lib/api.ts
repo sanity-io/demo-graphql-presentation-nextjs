@@ -43,14 +43,6 @@ export const graphqlTag = assertValue(
 export const graphqlApiVersion = '2023-08-01'
 
 /**
- * Used to link up the GraphQL deploy command with the right workspace and schema
- */
-export const graphqlWorkspace = 'app-router'
-
-/**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
  */
-export const studioUrl = {
-  baseUrl: '/studio',
-  workspace: graphqlWorkspace,
-} satisfies StudioUrl
+export const studioUrl = '/studio' satisfies StudioUrl

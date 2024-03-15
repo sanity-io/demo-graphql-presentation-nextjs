@@ -4,6 +4,7 @@ import type { ImageFragmentType } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/utils'
 
 interface CoverImageProps {
+  'data-sanity': string
   image?: ImageFragmentType | null
   priority?: boolean
 }
