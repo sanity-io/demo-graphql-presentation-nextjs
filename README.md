@@ -18,7 +18,7 @@
 
 ## Demo
 
-### [https://demo-graphql-presentation-nextjs.sanity.build/](https://demo-graphql-presentation-nextjs.sanity.build/)
+### [https://demo-graphql-presentation-pages-router.sanity.build/](https://demo-graphql-presentation-pages-router.sanity.build/)
 
 ## Deploy your own
 
