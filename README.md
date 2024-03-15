@@ -1,5 +1,8 @@
 # Sanity Presentation with GraphQL
 
+> [!IMPORTANT]
+> This is the [App Router][app-router] version, [there's also a version for Pages Router](https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router).
+
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://github.com/sanity-io/next.js/assets/81981/59ecd9d6-7a78-41c6-95f7-275f66fe3c9d)
 
 > [!NOTE]  
@@ -8,7 +11,7 @@
 ## Features
 
 - Uses URQL to query the GraphQL API
-- Demonstrates how to use [`sanity/presentation`][presentation] on both [App Router][app-router] and [Pages Router][pages-router]
+- Demonstrates how to use [`sanity/presentation`][presentation] and Visual Editing without GROQ.
 - Out of the box support for [Vercel Visual Editing](https://www.sanity.io/blog/visual-editing-sanity-vercel?utm_source=github.com&utm_medium=referral&utm_campaign=may-vercel-launch).
 
 ## Demo
