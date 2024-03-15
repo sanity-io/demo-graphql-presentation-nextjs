@@ -1,8 +1,5 @@
 import createImageUrlBuilder from '@sanity/image-url'
-import {
-  createDataAttribute,
-  type CreateDataAttributeProps,
-} from '@sanity/visual-editing'
+import { createDataAttribute, type CreateDataAttributeProps } from 'next-sanity'
 
 import { dataset, projectId, studioUrl } from '@/sanity/lib/api'
 
