@@ -8,12 +8,7 @@ import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 
-import {
-  apiVersion,
-  dataset,
-  projectId,
-  studioUrl,
-} from '@/sanity/lib/api'
+import { apiVersion, dataset, projectId, studioUrl } from '@/sanity/lib/api'
 import { locate } from '@/sanity/plugins/locate'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
 import { assistWithPresets } from '@/sanity/plugins/assist'
@@ -52,4 +47,4 @@ export default defineConfig({
     process.env.NODE_ENV === 'development' &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],
-},)
+})
