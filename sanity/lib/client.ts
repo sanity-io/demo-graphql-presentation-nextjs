@@ -1,65 +1,60 @@
-import { cacheExchange, createClient, fetchExchange } from '@urql/core'
-import type { ClientPerspective } from 'next-sanity'
-import { cache } from 'react'
-
 import {
-  dataset,
-  graphqlApiVersion,
-  graphqlTag,
-  projectId,
-} from '@/sanity/lib/api'
-import { token } from '@/sanity/lib/token'
+  cacheExchange,
+  fetchExchange,
+  type SSRExchange,
+  type ClientOptions,
+} from '@urql/core'
 
-export function defineClientUrl(config: {
-  useCdn: boolean
-  perspective: Omit<ClientPerspective, 'raw'>
-  resultSourceMap: boolean
-}): string {
-  const { useCdn, perspective } = config
-  const url = new URL(
-    `https://${projectId}.${useCdn ? 'apicdn' : 'api'}.sanity.io/v${graphqlApiVersion}/graphql/${dataset}/${graphqlTag}/`,
-  )
+import { graphqlApiUrl, studioUrl } from '@/sanity/lib/api'
+import {
+  sanityExchange,
+  type SanityExchangeConfig,
+} from '@/sanity/lib/urql-exchange'
 
-  url.searchParams.set('perspective', perspective as string)
-  if (config.resultSourceMap) {
-    url.searchParams.set('resultSourceMap', 'true')
-  }
-  return url.toString()
-}
-
-const makeClient = (
-  perspective: Omit<ClientPerspective, 'raw'>,
-  resultSourceMap: boolean,
+/**
+ * This function is designed to be used with scenarios like `import { withUrqlClient } from 'next-urql'` where
+ * the ssr exchange requires special handling, and where the `token` is provided for fetching draft content.
+ */
+export const getClientOptions = (
+  config: {
+    ssr?: SSRExchange
+    token?: string
+  } & Pick<SanityExchangeConfig, 'stega' | 'perspective'>,
 ) => {
-  switch (perspective) {
-    case 'published':
-      /**
-       * In production we use the CDN, the 'published' perspective and optimize for cache TTL and re-use.
-       * If you are using a private dataset then you'll need to set the `Authorization` header like in `previewDrafts`.
-       */
-      return createClient({
-        url: defineClientUrl({ useCdn: true, perspective, resultSourceMap }),
-        exchanges: [cacheExchange, fetchExchange],
-        fetchOptions: {
-          // When using the `published` perspective we use time-based revalidation to match the time-to-live on Sanity's API CDN (30 seconds)
-          // https://www.sanity.io/docs/graphql#f79d83e447f8
-          next: { revalidate: 30 },
-        },
-      })
-    case 'previewDrafts':
-      return createClient({
-        url: defineClientUrl({ useCdn: false, perspective, resultSourceMap }),
-        exchanges: [cacheExchange, fetchExchange],
-        fetchOptions: {
+  const { ssr, token, perspective = 'published', stega = false } = config
+  /**
+   * Configure how the Content Source Maps are transcoded into stega data that Vercel Visual Editing and Sanity Presentation understands
+   */
+  const sanityExchangeConfig = {
+    perspective,
+    stega,
+    studioUrl,
+    logger: console,
+    filter: (props) => {
+      if (props.sourcePath.at(-1) === 'title') {
+        return true
+      }
+
+      return props.filterDefault(props)
+    },
+  } satisfies SanityExchangeConfig
+
+  return {
+    url: graphqlApiUrl,
+    exchanges: ssr
+      ? [
+          cacheExchange,
+          ssr,
+          sanityExchange(sanityExchangeConfig),
+          fetchExchange,
+        ]
+      : [cacheExchange, sanityExchange(sanityExchangeConfig), fetchExchange],
+    fetchOptions: token
+      ? {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          // We can't cache the responses as it would slow down the live preview experience
-          next: { revalidate: 0 },
-        },
-      })
-    default:
-      throw new Error(`Unknown perspective: ${perspective}`)
-  }
+        }
+      : {},
+  } satisfies ClientOptions
 }
-export const getClient = cache(makeClient)

@@ -3,7 +3,7 @@
  * This config is used to set up Sanity Studio that's mounted on the `app/(sanity)/studio/[[...tool]]/page.tsx` route
  */
 import { visionTool } from '@sanity/vision'
-import { type PluginOptions, defineConfig, definePlugin } from 'sanity'
+import { type PluginOptions, defineConfig } from 'sanity'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
@@ -11,19 +11,20 @@ import { structureTool } from 'sanity/structure'
 import {
   apiVersion,
   dataset,
-  graphqlWorkspace,
   projectId,
   studioUrl,
 } from '@/sanity/lib/api'
-import { defineLocate } from '@/sanity/plugins/locate'
+import { locate } from '@/sanity/plugins/locate'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
 import { assistWithPresets } from '@/sanity/plugins/assist'
 import author from '@/sanity/schemas/documents/author'
 import post from '@/sanity/schemas/documents/post'
 import settings from '@/sanity/schemas/singletons/settings'
 
-const sharedSettings = definePlugin({
-  name: 'sharedSettings',
+export default defineConfig({
+  basePath: studioUrl,
+  projectId,
+  dataset,
   schema: {
     types: [
       // Singletons
@@ -34,6 +35,10 @@ const sharedSettings = definePlugin({
     ],
   },
   plugins: [
+    presentationTool({
+      locate,
+      previewUrl: { preview: '/', previewMode: { enable: '/api/draft' } },
+    }),
     structureTool({ structure: pageStructure([settings]) }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     singletonPlugin([settings.name]),
@@ -47,38 +52,4 @@ const sharedSettings = definePlugin({
     process.env.NODE_ENV === 'development' &&
       visionTool({ defaultApiVersion: apiVersion }),
   ].filter(Boolean) as PluginOptions[],
-})
-
-const pagesRouterWorkspaceName = 'pages-router'
-
-export default defineConfig([
-  {
-    name: graphqlWorkspace,
-    basePath: `${studioUrl.baseUrl}/${studioUrl.workspace}`,
-    projectId,
-    dataset,
-    plugins: [
-      presentationTool({
-        locate: defineLocate('/'),
-        previewUrl: { preview: '/', previewMode: { enable: '/api/draft' } },
-      }),
-      sharedSettings(),
-    ],
-  },
-  {
-    name: pagesRouterWorkspaceName,
-    basePath: `${studioUrl.baseUrl}/${pagesRouterWorkspaceName}`,
-    projectId,
-    dataset,
-    plugins: [
-      presentationTool({
-        locate: defineLocate(`/${pagesRouterWorkspaceName}/`),
-        previewUrl: {
-          preview: `/${pagesRouterWorkspaceName}`,
-          previewMode: { enable: '/api/draft' },
-        },
-      }),
-      sharedSettings(),
-    ],
-  },
-])
+},)

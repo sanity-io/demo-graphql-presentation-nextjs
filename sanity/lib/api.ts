@@ -43,14 +43,13 @@ export const graphqlTag = assertValue(
 export const graphqlApiVersion = '2023-08-01'
 
 /**
- * Used to link up the GraphQL deploy command with the right workspace and schema
+ * Used to connect to the GraphQL API
  */
-export const graphqlWorkspace = 'app-router'
+export const graphqlApiUrl = new URL(
+  `https://${projectId}.apicdn.sanity.io/v${graphqlApiVersion}/graphql/${dataset}/${graphqlTag}/`,
+).toString()
 
 /**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
  */
-export const studioUrl = {
-  baseUrl: '/studio',
-  workspace: graphqlWorkspace,
-} satisfies StudioUrl
+export const studioUrl = '/studio' satisfies StudioUrl

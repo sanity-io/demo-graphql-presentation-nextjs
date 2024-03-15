@@ -1,15 +1,20 @@
 # Sanity Presentation with GraphQL
 
+> [!IMPORTANT]
+> This is the [Pages Router][pages-router] version, [there's also a version for App Router](https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/app-router#readme).
+
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://github.com/sanity-io/next.js/assets/81981/59ecd9d6-7a78-41c6-95f7-275f66fe3c9d)
 
 > [!NOTE]  
-> This demo is setup with GraphQL, [there's also a simpler version that uses GROQ.][https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme]
+> This demo is setup with GraphQL, [there's also a simpler version that uses GROQ.](https://github.com/vercel/next.js/tree/canary/examples/cms-sanity#readme)
 
 ## Features
 
 - Uses URQL to query the GraphQL API
-- Demonstrates how to use [`sanity/presentation`][presentation] on both [App Router][app-router] and [Pages Router][pages-router]
+- Time-based Incremental Static Revalidation (getStaticProps).
+- Demonstrates how to use [`sanity/presentation`][presentation] and Visual Editing without GROQ.
 - Out of the box support for [Vercel Visual Editing](https://www.sanity.io/blog/visual-editing-sanity-vercel?utm_source=github.com&utm_medium=referral&utm_campaign=may-vercel-launch).
+- [App Router][app-router] is used to embed the Sanity Studio that lives in the `/studio` route, while the rest is [Pages Router][pages-router].
 
 ## Demo
 
@@ -26,15 +31,15 @@ Use the Deploy Button below, you'll deploy the example using [Vercel](https://ve
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
 
 ```bash
-npx create-next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
+npx create-next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router sanity-graphql-presentation
 ```
 
 ```bash
-yarn create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
+yarn create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router sanity-graphql-presentation
 ```
 
 ```bash
-pnpm create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs sanity-graphql-presentation
+pnpm create next-app --example https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router sanity-graphql-presentation
 ```
 
 # Configuration
@@ -273,7 +278,7 @@ npx vercel link
 
 - [Join the Sanity community](https://slack.sanity.io/)
 
-[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs&env=NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,SANITY_API_READ_TOKEN,NEXT_PUBLIC_SANITY_GRAPHQL_TAG&envDescription=Make%20sure%20you%27ve%20deployed%20the%20GraphQL%20API%20and%20created%20the%20necessary%20environment%20variables%20before%20deploying&envLink=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs%23using-the-sanity-cli&project-name=saity-graphql-presentation&repository-name=saity-graphql-presentation&demo-title=Sanity%20Presentation%20%2B%20GQL&demo-description=Using%20URQL%2C%20Next.js%2C%20and%20App%20Router&demo-url=https%3A%2F%2Fdemo-graphql-presentation-nextjs.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259
+[vercel-deploy]: https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs%2Ftree%2Fpages-router&env=NEXT_PUBLIC_SANITY_PROJECT_ID,NEXT_PUBLIC_SANITY_DATASET,SANITY_API_READ_TOKEN,NEXT_PUBLIC_SANITY_GRAPHQL_TAG&envDescription=Make%20sure%20you%27ve%20deployed%20the%20GraphQL%20API%20and%20created%20the%20necessary%20environment%20variables%20before%20deploying&envLink=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fdemo-graphql-presentation-nextjs%2Ftree%2Fpages-router%3Ftab%3Dreadme-ov-file%23using-the-sanity-cli&project-name=saity-graphql-presentation&repository-name=saity-graphql-presentation&demo-title=Sanity%20Presentation%20%2B%20GQL&demo-description=Using%20URQL%2C%20Next.js%2C%20and%20Pages%20Router&demo-url=https%3A%2F%2Fdemo-graphql-presentation-pages-router.sanity.build%2F&demo-image=https%3A%2F%2Fgithub.com%2Fsanity-io%2Fnext-sanity%2Fassets%2F81981%2Fb81296a9-1f53-4eec-8948-3cb51aca1259
 [`.env.local.example`]: .env.local.example
 [unsplash]: https://unsplash.com
 [presentation]: https://www.sanity.io/docs/presentation

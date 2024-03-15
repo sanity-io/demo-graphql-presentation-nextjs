@@ -46,7 +46,7 @@ const SettingsFragment = gql`
   }
   ${ImageFragment}
 `
-type SettingsFragmentType = {
+export type SettingsFragmentType = {
   title?: string
   descriptionRaw?: PortableTextBlock[]
   footerRaw?: PortableTextBlock[]
