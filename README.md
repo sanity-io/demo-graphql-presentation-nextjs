@@ -1,7 +1,7 @@
 # Sanity Presentation with GraphQL
 
 > [!IMPORTANT]
-> This is the [App Router][app-router] version, [there's also a version for Pages Router](https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router).
+> This is the [App Router][app-router] version, [there's also a version for Pages Router](https://github.com/sanity-io/demo-graphql-presentation-nextjs/tree/pages-router#readme).
 
 ![Screenshot of Sanity Studio using Presentation Tool to do Visual Editing](https://github.com/sanity-io/next.js/assets/81981/59ecd9d6-7a78-41c6-95f7-275f66fe3c9d)
 
