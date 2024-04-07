@@ -36,8 +36,8 @@ dependencies:
     specifier: 18.2.24
     version: 18.2.24
   '@urql/core':
-    specifier: 4.3.0
-    version: 4.3.0
+    specifier: 5.0.0
+    version: 5.0.0
   '@vercel/speed-insights':
     specifier: 1.0.10
     version: 1.0.10(next@14.1.4)(react@18.2.0)
@@ -103,8 +103,8 @@ devDependencies:
 
 packages:
 
-  /@0no-co/graphql.web@1.0.4:
-    resolution: {integrity: sha512-W3ezhHGfO0MS1PtGloaTpg0PbaT8aZSmmaerL7idtU5F7oCI+uu25k+MsMS31BVFlp4aMkHSrNRxiD72IlK8TA==}
+  /@0no-co/graphql.web@1.0.6:
+    resolution: {integrity: sha512-KZ7TnwMcQJcFgzjoY623AVxtlDQonkqp3rSz0wb15/jHPyU1v5gynUibEpuutDeoyGJ5Tp+FwxjGyDGDwq3vIw==}
     peerDependencies:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     peerDependenciesMeta:
@@ -3135,10 +3135,10 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@urql/core@4.3.0:
-    resolution: {integrity: sha512-wT+FeL8DG4x5o6RfHEnONNFVDM3616ouzATMYUClB6CB+iIu2mwfBKd7xSUxYOZmwtxna5/hDRQdMl3nbQZlnw==}
+  /@urql/core@5.0.0:
+    resolution: {integrity: sha512-kFkZxusq/VBQKEUcQFtf7AilMotLO+oGpE4WFhCiminZm8ZU2aulXSDWla50TaD0pj704FnWlXts6lRm0uHdDg==}
     dependencies:
-      '@0no-co/graphql.web': 1.0.4
+      '@0no-co/graphql.web': 1.0.6
       wonka: 6.3.4
     transitivePeerDependencies:
       - graphql
