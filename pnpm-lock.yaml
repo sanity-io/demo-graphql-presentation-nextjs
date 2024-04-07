@@ -39,8 +39,8 @@ dependencies:
     specifier: 18.2.24
     version: 18.2.24
   '@urql/core':
-    specifier: 4.3.0
-    version: 4.3.0(graphql@16.8.1)
+    specifier: 5.0.0
+    version: 5.0.0(graphql@16.8.1)
   '@urql/next':
     specifier: 1.1.1
     version: 1.1.1(next@14.1.4)(react@18.2.0)(urql@4.0.7)
@@ -3183,15 +3183,6 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
-
-  /@urql/core@4.3.0(graphql@16.8.1):
-    resolution: {integrity: sha512-wT+FeL8DG4x5o6RfHEnONNFVDM3616ouzATMYUClB6CB+iIu2mwfBKd7xSUxYOZmwtxna5/hDRQdMl3nbQZlnw==}
-    dependencies:
-      '@0no-co/graphql.web': 1.0.6(graphql@16.8.1)
-      wonka: 6.3.4
-    transitivePeerDependencies:
-      - graphql
-    dev: false
 
   /@urql/core@5.0.0(graphql@16.8.1):
     resolution: {integrity: sha512-kFkZxusq/VBQKEUcQFtf7AilMotLO+oGpE4WFhCiminZm8ZU2aulXSDWla50TaD0pj704FnWlXts6lRm0uHdDg==}
