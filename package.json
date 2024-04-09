@@ -20,7 +20,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@sanity/assist": "2.0.4",
+    "@sanity/assist": "3.0.1",
     "@sanity/client": "6.15.11",
     "@sanity/icons": "2.11.7",
     "@sanity/image-url": "1.0.2",
