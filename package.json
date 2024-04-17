@@ -5,7 +5,7 @@
     "dev": "next",
     "format": "prettier --cache --write .",
     "graphql:deploy": "sanity graphql deploy",
-    "lint": "next lint",
+    "lint": "next lint .",
     "presetup": "echo 'about to setup env variables, follow the guide here: https://github.com/sanity-io/demo-graphql-presentation-nextjs#using-the-sanity-cli'",
     "setup": "npx sanity@latest init --env .env.local",
     "postsetup": "echo 'create the read token by following the rest of the guide: https://github.com/sanity-io/demo-graphql-presentation-nextjs#creating-a-read-token'",
