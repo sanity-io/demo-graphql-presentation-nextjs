@@ -47,9 +47,9 @@ export function resolveHref(
   }
 }
 
-export function defineDataAttribute(
-  props: Pick<CreateDataAttributeProps, 'id' | 'type'>,
-) {
+export function defineDataAttribute<
+  const T extends Required<Pick<CreateDataAttributeProps, 'id' | 'type'>>,
+>(props: T) {
   return createDataAttribute({
     ...props,
     baseUrl: studioUrl,
