@@ -31,10 +31,7 @@ export const getClientOptions = (
     studioUrl,
     logger: console,
     filter: (props) => {
-      if (props.sourcePath.at(-1) === 'title') {
-        return true
-      }
-
+      // @TODO customize stega filter here
       return props.filterDefault(props)
     },
   } satisfies SanityExchangeConfig
