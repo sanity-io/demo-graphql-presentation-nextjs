@@ -21,7 +21,7 @@ import {
 import { defineDataAttribute, resolveOpenGraphImage } from '@/sanity/lib/utils'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateStaticParams() {
@@ -49,7 +49,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const _post = await sanityFetch<PostQueryData>({
     query: PostQuery,
-    params,
+    params: await params,
     stega: false,
   })
   const post = _post.data?.allPost?.[0]
@@ -70,7 +70,7 @@ export default async function PostPage({ params }: Props) {
   const [_post, _settings] = await Promise.all([
     sanityFetch<PostQueryData>({
       query: PostQuery,
-      params,
+      params: await params,
     }),
     sanityFetch<SettingsQueryData>({
       query: SettingsQuery,
