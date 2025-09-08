@@ -2,7 +2,7 @@
  * Why are we using a custom provider instead of `import { withUrqlClient } from 'next-urql'`?
  * To allow passing down `draftMode` and `token` from `getStaticProps` and use it
  * to reconfigure the client, set its Authorization header so it can query draft content with
- * `perspective=previewDrafts`.
+ * `perspective=drafts`.
  */
 
 import type { ParsedUrlQuery } from 'querystring'
@@ -118,13 +118,13 @@ export function defineGetStaticProps<
   return (async (ctx) => {
     const { draftMode = false } = ctx
     const token = draftMode ? _token : ''
-    const perspective = draftMode ? 'previewDrafts' : 'published'
+    const perspective = draftMode ? 'drafts' : 'published'
     /**
      * Content Source Maps are needed in Draft Mode for Sanity Presentation,
      * and for Vercel Visual Editing on Preview Deployments (checked using VERCEL_ENV).
      */
     const stega =
-      perspective === 'previewDrafts' || process.env.VERCEL_ENV === 'preview'
+      perspective === 'drafts' || process.env.VERCEL_ENV === 'preview'
 
     const ssrCache = ssrExchange({ isClient: false, initialState: undefined })
     const client = initUrqlClient(

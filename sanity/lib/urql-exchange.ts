@@ -37,7 +37,7 @@ export const sanityExchange =
 
       const { stega = config.stega, perspective = config.perspective } =
         operation.context
-      const useCdn = perspective !== 'previewDrafts' && !stega
+      const useCdn = perspective !== 'drafts' && !stega
 
       const url = new URL(
         useCdn
@@ -48,7 +48,10 @@ export const sanityExchange =
             ),
       )
       if (perspective) {
-        url.searchParams.set('perspective', perspective)
+        url.searchParams.set(
+          'perspective',
+          Array.isArray(perspective) ? perspective.join(',') : perspective,
+        )
       }
       if (stega) {
         url.searchParams.set('resultSourceMap', 'true')

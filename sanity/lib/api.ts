@@ -27,7 +27,7 @@ export const projectId = assertValue(
  * See https://www.sanity.io/docs/api-versioning for how versioning works
  */
 export const apiVersion =
-  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-02-28'
+  process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-08-08'
 
 /**
  * Used for querying and deploying the right GraphQL API
@@ -38,7 +38,7 @@ export const graphqlTag = assertValue(
 )
 
 /**
- * See https://www.sanity.io/docs/graphql#7fc7bbeca01e for how versioning works
+ * See https://www.sanity.io/docs/content-lake/graphql#k7fc7bbeca01e for how versioning works
  */
 export const graphqlApiVersion = '2023-08-01'
 
