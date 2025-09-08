@@ -45,8 +45,8 @@ importers:
         specifier: 5.2.0
         version: 5.2.0(graphql@16.11.0)
       '@urql/next':
-        specifier: 1.1.5
-        version: 1.1.5(next@15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(urql@4.2.2(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1))
+        specifier: 2.0.0
+        version: 2.0.0(next@15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(urql@4.2.2(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1))
       '@vercel/speed-insights':
         specifier: 1.2.0
         version: 1.2.0(next@15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -2356,12 +2356,12 @@ packages:
   '@urql/core@5.2.0':
     resolution: {integrity: sha512-/n0ieD0mvvDnVAXEQgX/7qJiVcvYvNkOHeBvkwtylfjydar123caCXcl58PXFY11oU1oquJocVXHxLAbtv4x1A==}
 
-  '@urql/next@1.1.5':
-    resolution: {integrity: sha512-xCNzgf6IarQ99FN4IPvj5nwkeX1z/mpO9+R54StZOK445lXlYbQnI8s4b9tNqTHbB09gt/vKE3ByRh2NLFMyfw==}
+  '@urql/next@2.0.0':
+    resolution: {integrity: sha512-X7q/+MOUtX1suaDxGJdgjAqE/eyhcGr1XnTO0VpUnSPdPOkVUKm5RNDIQy4ecupTYKs++1j2YWcmAfLc9R/Gkw==}
     peerDependencies:
       next: '>=13.0.0'
       react: '>=18.0.0'
-      urql: ^4.0.0
+      urql: ^5.0.0
 
   '@vercel/edge@1.2.2':
     resolution: {integrity: sha512-1+y+f6rk0Yc9ss9bRDgz/gdpLimwoRteKHhrcgHvEpjbP1nyT3ByqEMWm2BTcpIO5UtDmIFXc8zdq4LR190PDA==}
@@ -8704,7 +8704,7 @@ snapshots:
     transitivePeerDependencies:
       - graphql
 
-  '@urql/next@1.1.5(next@15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(urql@4.2.2(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1))':
+  '@urql/next@2.0.0(next@15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(urql@4.2.2(@urql/core@5.2.0(graphql@16.11.0))(react@18.3.1))':
     dependencies:
       next: 15.5.2(@babel/core@7.28.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
