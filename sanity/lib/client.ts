@@ -35,7 +35,7 @@ const makeClient = (
     case 'published':
       /**
        * In production we use the CDN, the 'published' perspective and optimize for cache TTL and re-use.
-       * If you are using a private dataset then you'll need to set the `Authorization` header like in `previewDrafts`.
+       * If you are using a private dataset then you'll need to set the `Authorization` header like in `drafts`.
        */
       return createClient({
         url: defineClientUrl({ useCdn: true, perspective, resultSourceMap }),
@@ -46,7 +46,7 @@ const makeClient = (
           next: { revalidate: 30 },
         },
       })
-    case 'previewDrafts':
+    case 'drafts':
       return createClient({
         url: defineClientUrl({ useCdn: false, perspective, resultSourceMap }),
         exchanges: [cacheExchange, fetchExchange],

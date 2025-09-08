@@ -40,7 +40,7 @@ export const graphqlTag = assertValue(
 /**
  * See https://www.sanity.io/docs/graphql#7fc7bbeca01e for how versioning works
  */
-export const graphqlApiVersion = '2023-08-01'
+export const graphqlApiVersion = '2025-02-19'
 
 /**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.

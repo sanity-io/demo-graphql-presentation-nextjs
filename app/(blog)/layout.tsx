@@ -2,7 +2,8 @@ import './globals.css'
 
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
-import { type PortableTextBlock, VisualEditing, toPlainText } from 'next-sanity'
+import { type PortableTextBlock, toPlainText } from 'next-sanity'
+import { VisualEditing } from 'next-sanity/visual-editing'
 import { Inter } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
@@ -95,7 +96,7 @@ async function Footer() {
   )
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -104,13 +105,13 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} bg-white text-black`}>
       <body>
         <section className="min-h-screen">
-          {draftMode().isEnabled && <AlertBanner />}
+          {(await draftMode()).isEnabled && <AlertBanner />}
           <main>{children}</main>
           <Suspense>
             <Footer />
           </Suspense>
         </section>
-        {draftMode().isEnabled && <VisualEditing />}
+        {(await draftMode()).isEnabled && <VisualEditing />}
         <SpeedInsights />
       </body>
     </html>
