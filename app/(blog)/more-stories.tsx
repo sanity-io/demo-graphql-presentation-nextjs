@@ -11,12 +11,10 @@ import {
 } from '@/sanity/lib/queries'
 import { defineDataAttribute } from '@/sanity/lib/utils'
 
-export default async function MoreStories(
-  params: Promise<{
-    skip: string
-    limit: number
-  }>,
-) {
+export default async function MoreStories(params: {
+  skip: string
+  limit: number
+}) {
   const _data = await sanityFetch<MoreStoriesQueryData>({
     query: MoreStoriesQuery,
     params: await params,
