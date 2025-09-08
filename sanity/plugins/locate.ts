@@ -49,7 +49,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
   if (params.type === 'post' || params.type === 'author') {
     const doc$ = context.documentStore.listenQuery(
       `*[defined(slug.current) && _id==$id || references($id)]{_type,slug,title}`,
-      params,
+      { id: params.id },
       { perspective: 'drafts' },
     ) as Observable<
       | {
