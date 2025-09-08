@@ -40,7 +40,7 @@ export const graphqlTag = assertValue(
 /**
  * See https://www.sanity.io/docs/content-lake/graphql#k7fc7bbeca01e for how versioning works
  */
-export const graphqlApiVersion = '2023-08-01'
+export const graphqlApiVersion = '2025-02-19'
 
 /**
  * Used to connect to the GraphQL API

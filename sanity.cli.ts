@@ -1,6 +1,10 @@
 import { defineCliConfig } from 'sanity/cli'
+import { loadEnvConfig } from '@next/env'
 
-import { projectId, dataset, graphqlTag } from '@/sanity/lib/api'
+const projectDir = process.cwd()
+loadEnvConfig(projectDir)
+
+const { projectId, dataset, graphqlTag } = require('@/sanity/lib/api')
 
 export default defineCliConfig({
   api: { projectId, dataset },
