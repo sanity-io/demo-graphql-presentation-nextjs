@@ -27,8 +27,10 @@ import { token as _token } from '@/sanity/lib/token'
 import { getClientOptions } from '@/sanity/lib/client'
 import type { SanityExchangeConfig } from '@/sanity/lib/urql-exchange'
 
-export interface UrqlProviderProps
-  extends Pick<WithUrqlClientOptions, 'staleWhileRevalidate'> {
+export interface UrqlProviderProps extends Pick<
+  WithUrqlClientOptions,
+  'staleWhileRevalidate'
+> {
   children: React.ReactNode
   token: string
   stega: Exclude<SanityExchangeConfig['stega'], undefined>
@@ -96,11 +98,10 @@ export function UrqlProvider(props: UrqlProviderProps) {
   return <Provider value={client}>{children}</Provider>
 }
 
-export interface RequiredProps
-  extends Pick<
-    UrqlProviderProps,
-    'token' | 'urqlState' | 'perspective' | 'stega'
-  > {
+export interface RequiredProps extends Pick<
+  UrqlProviderProps,
+  'token' | 'urqlState' | 'perspective' | 'stega'
+> {
   draftMode: boolean
 }
 /**

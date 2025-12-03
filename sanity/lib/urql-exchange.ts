@@ -12,8 +12,10 @@ import type {
   ContentSourceMap,
 } from '@sanity/client'
 
-export interface SanityExchangeConfig
-  extends Pick<StegaConfig, 'logger' | 'filter'> {
+export interface SanityExchangeConfig extends Pick<
+  StegaConfig,
+  'logger' | 'filter'
+> {
   /**
    * @defaultValue 'published'
    */
