@@ -20,7 +20,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@next/env": "15.5.7",
+    "@next/env": "16.3.4",
     "@sanity/assist": "5.0.2",
     "@sanity/client": "7.13.1",
     "@sanity/icons": "3.7.4",
